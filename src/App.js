@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import className from 'classnames/bind';
+import Filter from './components/filters/Filters';
+import TodoList from './components/todolist/TodoList';
+
+import styles from './App.module.scss';
+import { useState } from 'react';
+
+const cx = className.bind(styles);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [todos, setTodos] = useState([]);
+
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('inner')}>
+                <h1 className={cx('title')}>TODO LIST</h1>
+                <Filter />
+                <TodoList />
+            </div>
+        </div>
+    );
 }
 
 export default App;

@@ -1,0 +1,30 @@
+.filter {
+    position: relative;
+}
+
+.title {
+    margin: 10px 0 3px 0;
+}
+
+.search {
+    display: flex;
+}
+
+.input-search {
+    height: 32px;
+    flex: 1;
+    margin-right: 4px;
+}
+
+.icon-search {
+    height: 16px;
+    width: 16px;
+    padding: 7px;
+    border: 1px solid rgb(98, 97, 97);
+    border-radius: 2px;
+}
+
+.horizontal-line {
+    color: rgb(65, 64, 64);
+    margin: 24px 0;
+}

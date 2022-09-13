@@ -1,0 +1,21 @@
+.wrapper {
+    background-color: aliceblue;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    margin: 40px 0;
+    background-color: rgb(72, 154, 154);
+    width: 600px;
+    height: 100%;
+    text-align: left;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.title {
+    font-size: 4rem;
+    text-align: center;
+}

@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    height: 32px;
+}
+
+.input-add {
+    width: 64%;
+}
+
+.input-select {
+    width: 28%;
+}
+
+.btn {
+    width: 8%;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
