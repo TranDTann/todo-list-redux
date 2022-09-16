@@ -1,14 +1,45 @@
 .wrapper {
+    position: relative;
+}
+
+//action add
+.action-add {
     display: flex;
     height: 32px;
 }
 
 .input-add {
-    width: 64%;
+    min-width: 72%;
+    padding: 0 4px;
+}
+
+.select-priority {
+    position: relative;
+
+    &:focus ~ .list-priority {
+        display: block;
+    }
 }
 
 .input-select {
-    width: 28%;
+    height: 32px;
+    width: 112px;
+    padding: 0 11px;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.icon-down {
+    position: absolute;
+    left: 80px;
+    top: 6px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .btn {
@@ -17,5 +48,30 @@
     &:hover {
         cursor: pointer;
         opacity: 0.8;
+    }
+}
+
+.list-priority {
+    position: absolute;
+    left: 0px;
+    top: -100px;
+    background-color: #fff;
+    display: none;
+}
+
+.btn-priority-item {
+    width: 112px;
+    padding: 8px 12px;
+    display: block;
+    border: none;
+    background-color: #fff;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f5f5f5;
+    }
+
+    &:focus-within {
+        background-color: #e6f7ff;
     }
 }

@@ -1,0 +1,53 @@
+.job-item {
+    display: block;
+    padding: 0 4px;
+    width: 100%;
+    outline: none;
+}
+
+.todo {
+    display: flex;
+
+    &:hover .icon-trash {
+        display: inline-block;
+    }
+}
+
+.check {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-menu {
+    padding: 2px 8px;
+
+    &:focus ~ .option {
+        display: block;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// .option {
+//     display: none;
+// }
+
+.icon-trash {
+    padding-left: 4px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.icon-edit {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.icon-save {
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -1,15 +1,12 @@
 import className from 'classnames/bind';
-import Filter from './components/filters/Filters';
-import TodoList from './components/todolist/TodoList';
 
+import TodoList from './components/todolist/TodoList';
+import Filter from './components/filters/Filters';
 import styles from './App.module.scss';
-import { useState } from 'react';
 
 const cx = className.bind(styles);
 
 function App() {
-    const [todos, setTodos] = useState([]);
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>

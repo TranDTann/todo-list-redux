@@ -1,21 +1,23 @@
-import { useSelector } from 'react-redux';
 import className from 'classnames/bind';
+import { useSelector } from 'react-redux';
 
 import AddTodo from './addTodo/AddTodo';
-import { todoListSelector } from '../../redux/selectors';
+import { todosRemaining } from '../../redux/selectors';
 import styles from './TodoList.module.scss';
+import Item from './item/Item';
 
 const cx = className.bind(styles);
 
 function TodoList() {
-    const todoList = useSelector(todoListSelector);
-    console.log(todoList);
+    const todoList = useSelector(todosRemaining);
     return (
         <div>
-            {todoList.map((todo) => (
-                <input className={cx('job-item')} readOnly value={todo.name} />
-            ))}
-            <AddTodo />
+            <div className={cx('list')}>
+                {todoList.map((todo) => (
+                    <Item todo={todo} />
+                ))}
+            </div>
+            <AddTodo todoList={todoList} />
         </div>
     );
 }

@@ -5,15 +5,31 @@ import className from 'classnames/bind';
 import Tab from './tabs/Tab';
 import Priority from './priority/Priority';
 import styles from './Filters.module.scss';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchInput } from '../../redux/actions';
 
 const cx = className.bind(styles);
 
 function Filter() {
+    const [searchText, setSearchText] = useState('');
+    const dispatch = useDispatch();
+
+    const handleSearchText = (e) => {
+        setSearchText(e.target.value);
+        dispatch(searchInput(e.target.value));
+    };
+
     return (
         <div className={cx('filter')}>
             <h5 className={cx('title')}>Search</h5>
             <div className={cx('search')}>
-                <input className={cx('input-search')} placeholder="Search" />
+                <input
+                    className={cx('input-search')}
+                    placeholder="Search"
+                    value={searchText}
+                    onChange={handleSearchText}
+                />
                 <FontAwesomeIcon className={cx('icon-search')} icon={faMagnifyingGlass} />
             </div>
             <Tab />

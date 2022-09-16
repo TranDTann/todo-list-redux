@@ -1,5 +1,10 @@
 import className from 'classnames/bind';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import styles from './Tab.module.scss';
+
+import { changeTab } from '../../../redux/actions';
 
 const cx = className.bind(styles);
 
@@ -10,11 +15,24 @@ const tabs = [
 ];
 
 function Tab() {
+    const [currTab, setCurrTab] = useState(1);
+    const dispatch = useDispatch();
+
+    const handleTab = (tab) => {
+        setCurrTab(tab.id);
+        dispatch(changeTab(tab.title));
+    };
     return (
         <div>
             <h5 className={cx('title')}>Filter By Status</h5>
             {tabs.map((tab) => (
-                <button className={cx('btn-tab')}>{tab.title}</button>
+                <button
+                    className={cx('btn-tab')}
+                    onClick={() => handleTab(tab)}
+                    style={tab.id === currTab ? { backgroundColor: '#333', color: '#ffffffe6' } : {}}
+                >
+                    {tab.title}
+                </button>
             ))}
         </div>
     );
