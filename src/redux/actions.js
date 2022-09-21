@@ -32,3 +32,17 @@ export const searchInput = (tab) => {
         payload: tab,
     };
 };
+
+export const selectedPriority = (id) => {
+    return {
+        type: 'filters/prioritySearch',
+        payload: id,
+    };
+};
+
+export const todoSave = (dataTodoSave) => {
+    return {
+        type: 'todoList/todoSave',
+        payload: dataTodoSave,
+    };
+};

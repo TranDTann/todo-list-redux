@@ -10,7 +10,11 @@
 
 .input-add {
     min-width: 72%;
-    padding: 0 4px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 1px;
+    outline: none;
 }
 
 .select-priority {
@@ -24,8 +28,23 @@
 .input-select {
     height: 32px;
     width: 112px;
-    padding: 0 11px;
     outline: none;
+    border: none;
+    border-radius: 3px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-select {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: none;
+    border-radius: 3px;
+    text-align: left;
+    padding-left: 12px;
 
     &:hover {
         cursor: pointer;
@@ -34,8 +53,21 @@
 
 .icon-down {
     position: absolute;
-    left: 80px;
+    left: 88px;
     top: 6px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.cover-input-select {
+    position: absolute;
+    background-color: transparent;
+    width: 112px;
+    height: 32px;
+    left: 0;
+    top: 0;
 
     &:hover {
         cursor: pointer;
@@ -44,6 +76,9 @@
 
 .btn {
     width: 8%;
+    border: none;
+    border-radius: 3px;
+    margin-left: 1px;
 
     &:hover {
         cursor: pointer;
@@ -56,7 +91,9 @@
     left: 0px;
     top: -100px;
     background-color: #fff;
-    display: none;
+    border: none;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 3px;
 }
 
 .btn-priority-item {
@@ -65,6 +102,8 @@
     display: block;
     border: none;
     background-color: #fff;
+    text-align: left;
+    border-radius: 3px;
 
     &:hover {
         cursor: pointer;

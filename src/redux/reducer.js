@@ -2,13 +2,13 @@ const initState = {
     filters: {
         searchText: '',
         tab: 'All',
-        priority: [],
+        priorities: [],
     },
     todoList: [],
     options: [
-        { id: 1, name: 'High' },
-        { id: 2, name: 'Medium' },
-        { id: 3, name: 'Low' },
+        { id: 1, name: 'High', isSelected: false },
+        { id: 2, name: 'Medium', isSelected: false },
+        { id: 3, name: 'Low', isSelected: false },
     ],
 };
 
@@ -57,6 +57,30 @@ const rootReducer = (state = initState, action) => {
                     ...state.filters,
                     searchText: action.payload,
                 },
+            };
+        }
+
+        case 'filters/prioritySearch': {
+            const newOptions = [...state.options];
+            newOptions.map((option) => {
+                if (option.id === action.payload) {
+                    option.isSelected = !option.isSelected;
+                }
+                return option;
+            });
+
+            return { ...state, options: newOptions };
+        }
+
+        case 'todoList/todoSave': {
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) => {
+                    if (todo.id === action.payload.id) {
+                        todo.name = action.payload.value;
+                    }
+                    return todo;
+                }),
             };
         }
 

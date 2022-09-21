@@ -14,7 +14,10 @@
     height: 32px;
     flex: 1;
     margin-right: 4px;
-    padding: 0 4px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
 }
 
 .icon-search {
@@ -22,7 +25,7 @@
     width: 16px;
     padding: 7px;
     border: 1px solid rgb(98, 97, 97);
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: #fff;
 }
 

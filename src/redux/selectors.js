@@ -8,16 +8,27 @@ export const tabSelector = (state) => state.filters.tab;
 
 export const optionSelector = (state) => state.options;
 
+export const optionsSelected = (state) => state.options.filter((option) => option.isSelected);
+
 export const todosRemaining = createSelector(
     todoListSelector,
     searchTextSelector,
     tabSelector,
-    (todoList, searchText, tab) => {
+    optionsSelected,
+    (todoList, searchText, tab, options) => {
+        const nameOptions = options.map((option) => option.name);
         return todoList.filter((todo) => {
             if (tab === 'All') {
-                return todo.name.includes(searchText);
+                return nameOptions.length
+                    ? todo.name.includes(searchText) && nameOptions.includes(todo.priority)
+                    : todo.name.includes(searchText);
             }
-            return todo.name.includes(searchText) && (tab === 'Completed' ? todo.isChecked : !todo.isChecked);
+
+            return nameOptions.length
+                ? todo.name.includes(searchText) &&
+                      (tab === 'Completed' ? todo.isChecked : !todo.isChecked) &&
+                      nameOptions.includes(todo.priority)
+                : todo.name.includes(searchText) && (tab === 'Completed' ? todo.isChecked : !todo.isChecked);
         });
     },
 );

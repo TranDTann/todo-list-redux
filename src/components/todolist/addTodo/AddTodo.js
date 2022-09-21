@@ -1,5 +1,5 @@
 import className from 'classnames/bind';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,39 +12,54 @@ import { optionSelector } from '../../../redux/selectors';
 
 const cx = className.bind(styles);
 
-// const options = [
-//     { id: 1, name: 'High' },
-//     { id: 2, name: 'Medium' },
-//     { id: 3, name: 'Low' },
-// ];
-
-function AddTodo({ todoList }) {
+function AddTodo() {
     const [job, setJob] = useState('');
     const [priority, setPriority] = useState('Medium');
+    const [isFocus, setIsFocus] = useState(false);
 
     const inputRef = useRef();
+    const priorityRef = useRef(null);
 
     const dispatch = useDispatch();
 
     const options = useSelector(optionSelector);
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (e.path[0] !== priorityRef.current) {
+                setIsFocus(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
     const handleAdd = () => {
-        dispatch(
-            addTodo({
-                id: uuidv4(),
-                name: job,
-                priority: priority,
-                isChecked: false,
-            }),
-        );
+       if(job.trim() !== '') {
+         dispatch(
+             addTodo({
+                 id: uuidv4(),
+                 name: job,
+                 priority: priority,
+                 isChecked: false,
+             }),
+         );
+       }
         setJob('');
         inputRef.current.focus();
+        setPriority('Medium');
+    };
+
+    const handleFocus = () => {
+        setIsFocus(!isFocus);
     };
 
     const handlePriority = (value) => {
         setPriority(value);
     };
-
+    console.log(isFocus);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('action-add')}>
@@ -57,15 +72,22 @@ function AddTodo({ todoList }) {
                 />
 
                 <div className={cx('select-priority')}>
-                    <input className={cx('input-select')} defaultValue="Medium" readOnly value={priority} />
-                    <FontAwesomeIcon className={cx('icon-down')} icon={faChevronDown} />
-                    <div className={cx('list-priority')}>
-                        {options.map((option) => (
-                            <button className={cx('btn-priority-item')} onClick={() => handlePriority(option.name)}>
-                                <ItemPriority optionName={option.name} />
-                            </button>
-                        ))}
+                    <div className={cx('input-select')}>
+                        <button className={cx('btn-select')}>
+                            <ItemPriority optionName={priority} />
+                        </button>
+                        <FontAwesomeIcon className={cx('icon-down')} icon={faChevronDown} />
                     </div>
+                    <div className={cx('cover-input-select')} onClick={handleFocus} ref={priorityRef}></div>
+                    {isFocus && (
+                        <div className={cx('list-priority')}>
+                            {options.map((option) => (
+                                <button className={cx('btn-priority-item')} onClick={() => handlePriority(option.name)}>
+                                    <ItemPriority optionName={option.name} />
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <button className={cx('btn')} onClick={handleAdd}>
