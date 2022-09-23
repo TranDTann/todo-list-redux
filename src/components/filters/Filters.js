@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import className from 'classnames/bind';
-
-import Tab from './tabs/Tab';
-import Priority from './priority/Priority';
-import styles from './Filters.module.scss';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchInput } from '../../redux/actions';
+
+import Tab from './tabs/Tab';
+import styles from './Filters.module.scss';
+import Priority from './priority/Priority';
+import FiltersSlice from './filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -17,7 +17,7 @@ function Filter() {
 
     const handleSearchText = (e) => {
         setSearchText(e.target.value);
-        dispatch(searchInput(e.target.value));
+        dispatch(FiltersSlice.actions.searchInput(e.target.value));
     };
 
     return (

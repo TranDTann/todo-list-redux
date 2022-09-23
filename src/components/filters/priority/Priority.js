@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Priority.module.scss';
 import ItemPriority from './item/ItemPriority';
 import { optionSelector, optionsSelected } from '../../../redux/selectors';
-import { selectedPriority } from '../../../redux/actions';
+import FiltersSlice from '../filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -36,7 +36,7 @@ function Priority() {
     const handlePrioritySearch = (e, id) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(selectedPriority(id));
+        dispatch(FiltersSlice.actions.prioritySearch(id));
         setCurrPriority((prev) => {
             if (prev.includes(id)) {
                 return prev.filter((prevItem) => prevItem !== id);

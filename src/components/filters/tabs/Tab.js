@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import styles from './Tab.module.scss';
-
-import { changeTab } from '../../../redux/actions';
+import FiltersSlice from '../filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -20,7 +19,7 @@ function Tab() {
 
     const handleTab = (tab) => {
         setCurrTab(tab.id);
-        dispatch(changeTab(tab.title));
+        dispatch(FiltersSlice.actions.changeTab(tab.title));
     };
     return (
         <div>

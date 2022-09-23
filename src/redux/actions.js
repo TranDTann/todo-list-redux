@@ -33,7 +33,7 @@ export const searchInput = (tab) => {
     };
 };
 
-export const selectedPriority = (id) => {
+export const prioritySearch = (id) => {
     return {
         type: 'filters/prioritySearch',
         payload: id,
