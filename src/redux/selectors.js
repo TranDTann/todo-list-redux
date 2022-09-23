@@ -6,9 +6,9 @@ export const searchTextSelector = (state) => state.filters.searchText;
 
 export const tabSelector = (state) => state.filters.tab;
 
-export const optionSelector = (state) => state.options;
+export const optionSelector = (state) => state.filters.options;
 
-export const optionsSelected = (state) => state.options.filter((option) => option.isSelected);
+export const optionsSelected = (state) => state.filters.options.filter((option) => option.isSelected);
 
 export const todosRemaining = createSelector(
     todoListSelector,

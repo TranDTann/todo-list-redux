@@ -53,7 +53,7 @@ function Priority() {
     return (
         <div className={cx('wrapper')}>
             <h5 className={cx('title')}>Filter By Priority</h5>
-            <div className={cx('select')}>
+            <div className={cx('select')} onClick={handleFocusPriority}>
                 {!isFocusPriority && !selectedOptions.length ? (
                     <span className={cx('tittle-box-priority')}>Please select</span>
                 ) : (
@@ -70,11 +70,7 @@ function Priority() {
                         ))}
                     </div>
                 )}
-                <div
-                    className={cx(isFocusPriority || selectedOptions.length ? '' : 'cover-select')}
-                    onClick={handleFocusPriority}
-                    ref={refPriority}
-                ></div>
+                <div className={cx(isFocusPriority ? '' : 'cover-select')} handleFocusPriority ref={refPriority}></div>
             </div>
 
             {isFocusPriority && (

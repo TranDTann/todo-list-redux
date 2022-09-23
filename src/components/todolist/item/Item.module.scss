@@ -6,12 +6,18 @@
 
 .job-item {
     display: block;
-    padding: 0 4px;
+    padding: 0 28px 0 4px;
     height: 28px;
     outline: none;
     width: 100%;
     border: none;
     border-radius: 4px;
+}
+
+.icon-check {
+    position: absolute;
+    right: 4px;
+    color: rgb(28, 198, 198);
 }
 
 .todo {
@@ -21,15 +27,55 @@
 }
 
 .input {
+    position: relative;
     display: flex;
     width: 84%;
     align-items: center;
+    margin-right: 4px;
+    flex: 1;
+}
+
+.job-complete {
+    text-decoration: line-through;
+    background-color: rgb(189, 242, 225);
+    color: rgb(77, 77, 77);
+    opacity: 0.9;
 }
 
 .after-input {
     position: relative;
     display: flex;
     align-items: center;
+}
+
+.priority {
+    position: relative;
+}
+
+.cover-priority {
+    position: absolute;
+    width: 66px;
+    height: 22px;
+    top: -2;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.edit-priority {
+    position: absolute;
+    bottom: 25px;
+    background-color: #fff;
+    box-shadow: -1px -1px 3px rgb(116, 115, 115);
+    padding: 4px 0;
+}
+
+.item-priority {
+    padding: 0px 4px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(190, 252, 239);
+    }
 }
 
 //menu

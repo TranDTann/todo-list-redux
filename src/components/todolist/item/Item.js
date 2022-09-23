@@ -1,12 +1,12 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faFloppyDisk, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faFloppyDisk, faPen, faTrashCan, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Item.module.scss';
 import { check, deleteTodo, todoSave } from '../../../redux/actions';
-import { todoListSelector } from '../../../redux/selectors';
+import { optionSelector, todoListSelector } from '../../../redux/selectors';
 import ItemPriority from '../../filters/priority/item/ItemPriority';
 
 const cx = className.bind(styles);
@@ -14,9 +14,13 @@ const cx = className.bind(styles);
 function Item({ todo }) {
     const [isFocusMenu, setIsFocusMenu] = useState(false);
     const [isFocusEdit, setIsFocusEdit] = useState(false);
+    const [isFocusEditPriority, setIsFocusEditPriority] = useState(false);
     const [textInput, setTextInput] = useState('');
+    const [editPriority, setEditPriority] = useState(todo.priority);
     const inputRef = useRef();
+
     const todoList = useSelector(todoListSelector);
+    const options = useSelector(optionSelector);
 
     const menuRef = useRef(null);
 
@@ -33,7 +37,8 @@ function Item({ todo }) {
     });
 
     useEffect(() => {
-        setTextInput(todo);
+        setTextInput(todo.name);
+        setEditPriority(todo.priority);
     }, [todo]);
 
     const dispatch = useDispatch();
@@ -48,13 +53,13 @@ function Item({ todo }) {
         dispatch(deleteTodo(id));
     };
 
-    const handleSave = (id, textInput) => {
+    const handleSave = (id, textInput, editPriority) => {
         if (todoList.filter((todo) => todo.name).includes(textInput)) {
             inputRef.current.readOnly = true;
             setIsFocusEdit(false);
         } else {
             inputRef.current.readOnly = true;
-            dispatch(todoSave({ value: textInput, id: id }));
+            dispatch(todoSave({ textInput: textInput, id: id, editPriority: editPriority }));
             setIsFocusEdit(false);
         }
     };
@@ -65,6 +70,14 @@ function Item({ todo }) {
 
     const handleMenu = () => {
         setIsFocusMenu(!isFocusMenu);
+    };
+
+    const handleFocusEditPriority = () => {
+        setIsFocusEditPriority(!isFocusEditPriority);
+    };
+
+    const handleSetPriority = (value) => {
+        setEditPriority(value);
     };
 
     return (
@@ -79,21 +92,37 @@ function Item({ todo }) {
                     />
                     <input
                         ref={inputRef}
-                        className={cx('job-item')}
+                        className={cx('job-item', todo.isChecked ? 'job-complete' : '')}
                         readOnly
-                        value={textInput.name}
+                        value={textInput}
                         onChange={(e) => setTextInput(e.target.value)}
                     />
+                    {todo.isChecked && <FontAwesomeIcon className={cx('icon-check')} icon={faCheck} />}
+                </div>
+                <div className={cx('after-input')}>
+                    <div className={cx('priority')} onClick={handleFocusEditPriority}>
+                        <span className={cx(todo.isChecked ? 'job-complete' : '')}>
+                            <ItemPriority optionName={editPriority} />
+                        </span>
+                        {isFocusEditPriority && isFocusEdit && (
+                            <div className={cx('edit-priority')}>
+                                {options.map((option) => (
+                                    <div className={cx('item-priority')} onClick={() => handleSetPriority(option.name)}>
+                                        <ItemPriority optionName={option.name} />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                     {isFocusEdit && (
                         <FontAwesomeIcon
                             className={cx('icon-save')}
                             icon={faFloppyDisk}
-                            onClick={() => handleSave(todo.id, textInput)}
+                            onClick={() => handleSave(todo.id, textInput, editPriority)}
                         />
                     )}
-                </div>
-                <div className={cx('after-input')}>
-                    <ItemPriority optionName={todo.priority} />
+
                     <div onClick={handleMenu} ref={menuRef}>
                         <div className={cx('menu')}>
                             <FontAwesomeIcon className={cx('icon-menu')} icon={faEllipsisVertical} />

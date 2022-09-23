@@ -37,16 +37,16 @@ function AddTodo() {
     }, []);
 
     const handleAdd = () => {
-       if(job.trim() !== '') {
-         dispatch(
-             addTodo({
-                 id: uuidv4(),
-                 name: job,
-                 priority: priority,
-                 isChecked: false,
-             }),
-         );
-       }
+        if (job.trim() !== '') {
+            dispatch(
+                addTodo({
+                    id: uuidv4(),
+                    name: job,
+                    priority: priority,
+                    isChecked: false,
+                }),
+            );
+        }
         setJob('');
         inputRef.current.focus();
         setPriority('Medium');
@@ -59,7 +59,7 @@ function AddTodo() {
     const handlePriority = (value) => {
         setPriority(value);
     };
-    console.log(isFocus);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('action-add')}>
