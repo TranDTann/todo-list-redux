@@ -13,6 +13,7 @@ function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchTodos()); //Cai nay duoc goi 1 lan duy nhat khi component duoc mounted
+        console.log('ok');
     }, []);
     return (
         <div className={cx('wrapper')}>
