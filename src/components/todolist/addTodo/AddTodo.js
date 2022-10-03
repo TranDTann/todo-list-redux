@@ -8,7 +8,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import ItemPriority from '../../filters/priority/item/ItemPriority';
 import styles from './Add.module.scss';
 import { optionSelector } from '../../../redux/selectors';
-import TodosSlice from '../todosSlice';
+import { addNewTodo } from '../todosSlice';
 
 const cx = className.bind(styles);
 
@@ -39,7 +39,7 @@ function AddTodo() {
     const handleAdd = () => {
         if (job.trim() !== '') {
             dispatch(
-                TodosSlice.actions.addTodo({
+                addNewTodo({
                     id: uuidv4(),
                     name: job,
                     priority: priority,

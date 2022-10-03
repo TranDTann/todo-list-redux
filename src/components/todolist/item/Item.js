@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Item.module.scss';
 import { optionSelector, todoListSelector } from '../../../redux/selectors';
 import ItemPriority from '../../filters/priority/item/ItemPriority';
-import TodosSlice from '../todosSlice';
+import { checkTodo, deleteTodo, editTodo } from '../todosSlice';
 
 const cx = className.bind(styles);
 
@@ -54,7 +54,8 @@ function Item({ todo }) {
     };
 
     const handleDelete = (id) => {
-        dispatch(TodosSlice.actions.deleteTodo(id));
+        // dispatch(TodosSlice.actions.deleteTodo(id));
+        dispatch(deleteTodo(id));
     };
 
     const handleSave = (id, textInput, editPriority) => {
@@ -63,13 +64,15 @@ function Item({ todo }) {
             setIsFocusEdit(false);
         } else {
             inputRef.current.readOnly = true;
-            dispatch(TodosSlice.actions.todoSave({ textInput: textInput, id: id, editPriority: editPriority }));
+            // dispatch(TodosSlice.actions.todoSave({ textInput: textInput, id: id, editPriority: editPriority }));
+            dispatch(editTodo({ textInput: textInput, id: id, editPriority: editPriority }));
             setIsFocusEdit(false);
         }
     };
+    console.log(todo.isChecked);
+
     const handleCheck = (id) => {
-        let index = todoList.findIndex((item) => item.id === id);
-        dispatch(TodosSlice.actions.check(index));
+        dispatch(checkTodo({ id, isChecked: !todo.isChecked }));
     };
 
     const handleMenu = () => {
