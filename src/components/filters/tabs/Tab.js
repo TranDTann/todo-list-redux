@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import styles from './Tab.module.scss';
-import FiltersSlice from '../filtersSlice';
+import { changeTab } from '../filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -19,13 +19,15 @@ function Tab() {
 
     const handleTab = (tab) => {
         setCurrTab(tab.id);
-        dispatch(FiltersSlice.actions.changeTab(tab.title));
+
+        dispatch(changeTab(tab.title));
     };
     return (
         <div>
             <h5 className={cx('title')}>Filter By Status</h5>
-            {tabs.map((tab) => (
+            {tabs.map((tab, index) => (
                 <button
+                    key={index}
                     className={cx('btn-tab')}
                     onClick={() => handleTab(tab)}
                     style={tab.id === currTab ? { backgroundColor: '#333', color: '#ffffffe6' } : {}}

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { httpRequest } from '../../utils/httpRequest';
+import { todoFilter } from '../filters/filtersSlice';
 
 const ToDosSlice = createSlice({
     name: 'todoList',
@@ -75,13 +76,22 @@ const ToDosSlice = createSlice({
 
             .addCase(deleteTodo.fulfilled, (state, action) => {
                 state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
+            })
+
+            .addCase(todoFilter.fulfilled, (state, action) => {
+                console.log('todoFilter', action.payload);
+                state.todos = action.payload;
             });
     },
 });
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-    const res = await httpRequest.get('/todos');
-    return res.data;
+    try {
+        const res = await httpRequest.get('/todos');
+        return res.data;
+    } catch (err) {
+        console.log('errFetchTodos', err);
+    }
 });
 
 export const addNewTodo = createAsyncThunk('todos/addNewTodo', async (newTodo) => {
@@ -127,6 +137,8 @@ export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id) => {
 
 export default ToDosSlice;
 
+//
+//
 //Vd voi Thunk
 // export const addTodos = (todo) => {
 //     //thunk function creator

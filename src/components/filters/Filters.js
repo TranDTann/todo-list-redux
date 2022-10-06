@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import Tab from './tabs/Tab';
 import styles from './Filters.module.scss';
 import Priority from './priority/Priority';
-import FiltersSlice from './filtersSlice';
+import { searchInput } from './filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -17,7 +17,7 @@ function Filter() {
 
     const handleSearchText = (e) => {
         setSearchText(e.target.value);
-        dispatch(FiltersSlice.actions.searchInput(e.target.value));
+        dispatch(searchInput(e.target.value));
     };
 
     return (

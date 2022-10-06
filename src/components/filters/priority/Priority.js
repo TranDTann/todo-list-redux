@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Priority.module.scss';
 import ItemPriority from './item/ItemPriority';
 import { optionSelector, optionsSelected } from '../../../redux/selectors';
-import FiltersSlice from '../filtersSlice';
+import { prioritySearch } from '../filtersSlice';
 
 const cx = className.bind(styles);
 
@@ -18,6 +18,9 @@ function Priority() {
 
     const options = useSelector(optionSelector);
     const selectedOptions = useSelector(optionsSelected);
+
+    console.log('allOption', options);
+    console.log('selectedOption', selectedOptions);
 
     const dispatch = useDispatch();
 
@@ -33,27 +36,29 @@ function Priority() {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-    const handlePrioritySearch = (e, id) => {
+    const handlePrioritySearch = (e, name) => {
         e.stopPropagation();
-        e.preventDefault();
-        dispatch(FiltersSlice.actions.prioritySearch(id));
-        setCurrPriority((prev) => {
-            if (prev.includes(id)) {
-                return prev.filter((prevItem) => prevItem !== id);
-            } else {
-                return [...prev, id];
-            }
-        });
+        let updateCurrPriority = [...currPriority];
+        if (updateCurrPriority.includes(name)) {
+            updateCurrPriority = updateCurrPriority.filter((prevItem) => prevItem !== name);
+        } else {
+            updateCurrPriority.push(name);
+        }
+
+        setCurrPriority(updateCurrPriority);
+        console.log('updateCurrPriority', updateCurrPriority);
+        // dispatch(FiltersSlice.actions.prioritySearch(name));
+        dispatch(prioritySearch(updateCurrPriority));
     };
 
-    const handleFocusPriority = () => {
-        setIsFocusPriority(!isFocusPriority);
-    };
+    // const handleFocusPriority = () => {
+    //     setIsFocusPriority(!isFocusPriority);
+    // };
 
     return (
         <div className={cx('wrapper')}>
             <h5 className={cx('title')}>Filter By Priority</h5>
-            <div className={cx('select')} onClick={handleFocusPriority}>
+            <div className={cx('select')} onClick={() => setIsFocusPriority(!isFocusPriority)}>
                 {!isFocusPriority && !selectedOptions.length ? (
                     <span className={cx('tittle-box-priority')}>Please select</span>
                 ) : (
@@ -64,13 +69,17 @@ function Priority() {
                                 <FontAwesomeIcon
                                     className={cx('icon-x')}
                                     icon={faX}
-                                    onClick={(e) => handlePrioritySearch(e, item.id)}
+                                    onClick={(e) => handlePrioritySearch(e, item.name)}
                                 />
                             </div>
                         ))}
                     </div>
                 )}
-                <div className={cx(isFocusPriority ? '' : 'cover-select')} handleFocusPriority ref={refPriority}></div>
+                <div
+                    className={cx(isFocusPriority ? '' : 'cover-select')}
+                    //handleFocusPriority
+                    ref={refPriority}
+                ></div>
             </div>
 
             {isFocusPriority && (
@@ -78,9 +87,9 @@ function Priority() {
                     {options.map((option) => (
                         <div
                             className={cx('item')}
-                            onClick={(e) => handlePrioritySearch(e, option.id)}
+                            onClick={(e) => handlePrioritySearch(e, option.name)}
                             style={
-                                currPriority.includes(option.id)
+                                currPriority.includes(option.name)
                                     ? {
                                           backgroundColor: '#e6f7ff',
                                       }
@@ -88,7 +97,7 @@ function Priority() {
                             }
                         >
                             <ItemPriority optionName={option.name} />
-                            {currPriority.includes(option.id) && (
+                            {currPriority.includes(option.name) && (
                                 <FontAwesomeIcon icon={faCheckCircle} className={cx('icon-check')} />
                             )}
                         </div>

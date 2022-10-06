@@ -8,7 +8,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import ItemPriority from '../../filters/priority/item/ItemPriority';
 import styles from './Add.module.scss';
 import { optionSelector } from '../../../redux/selectors';
-import { addNewTodo } from '../todosSlice';
+import { addNewTodo } from '../TodosSlice';
 
 const cx = className.bind(styles);
 

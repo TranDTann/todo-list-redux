@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Item.module.scss';
 import { optionSelector, todoListSelector } from '../../../redux/selectors';
 import ItemPriority from '../../filters/priority/item/ItemPriority';
-import { checkTodo, deleteTodo, editTodo } from '../todosSlice';
+import { checkTodo, deleteTodo, editTodo } from '../TodosSlice';
 
 const cx = className.bind(styles);
 
@@ -69,7 +69,6 @@ function Item({ todo }) {
             setIsFocusEdit(false);
         }
     };
-    console.log(todo.isChecked);
 
     const handleCheck = (id) => {
         dispatch(checkTodo({ id, isChecked: !todo.isChecked }));
@@ -103,6 +102,7 @@ function Item({ todo }) {
                         readOnly
                         value={textInput}
                         onChange={(e) => setTextInput(e.target.value)}
+                        defaultChecked={true}
                     />
                     {todo.isChecked && <FontAwesomeIcon className={cx('icon-check')} icon={faCheck} />}
                 </div>
